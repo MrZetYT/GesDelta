@@ -5,7 +5,8 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-    </PropertyGroup>
+      <UserSecretsId>ad022532-2d89-49a6-a5c3-76208c8df78d</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\GesDelta.Core\GesDelta.Core.csproj" />
