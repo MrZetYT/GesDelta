@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
+using GesDelta.Orchestrator;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 var appSettings = new HostApplicationBuilderSettings()
 {
@@ -8,6 +11,10 @@ var appSettings = new HostApplicationBuilderSettings()
 
 var builder = Host.CreateApplicationBuilder(appSettings);
 
-var retainDays = builder.Configuration["Logging:RetainDays"];
+builder.AddMonitoring();
 
-Console.WriteLine(retainDays);
+var host = builder.Build();
+
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
+
+logger.LogInformation("Cli started");
