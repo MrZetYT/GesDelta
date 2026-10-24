@@ -1,6 +1,7 @@
 ﻿using GesDelta.Storage;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace GesDelta.Orchestrator;
@@ -27,6 +28,8 @@ public static class MonitoringExtensions
                                ?? throw new InvalidOperationException("Connection string is not found ConnectionStrings:Default");
 
         builder.Services.AddStorage(connectionString);
+
+        builder.Services.AddHostedService<StartupHostedService>(); //Планировщик регистрируется ниже
 
         return builder;
     }

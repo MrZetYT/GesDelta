@@ -13,8 +13,12 @@ var builder = Host.CreateApplicationBuilder(appSettings);
 
 builder.AddMonitoring();
 
-var host = builder.Build();
+using var host = builder.Build();
+
+await host.StartAsync();
 
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
 
 logger.LogInformation("Cli started");
+
+await host.StopAsync();
