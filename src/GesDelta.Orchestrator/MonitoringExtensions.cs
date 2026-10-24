@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using GesDelta.Storage;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -21,6 +22,11 @@ public static class MonitoringExtensions
                 retainedFileCountLimit: retainDays);
 
         builder.Services.AddSerilog(loggerConfig.CreateLogger(), dispose:true);
+        
+        var connectionString = builder.Configuration.GetConnectionString("Default")
+                               ?? throw new InvalidOperationException("Connection string is not found ConnectionStrings:Default");
+
+        builder.Services.AddStorage(connectionString);
 
         return builder;
     }
