@@ -8,6 +8,7 @@ public class GesDeltaDbContext : DbContext
     public DbSet<Topic> Topics => Set<Topic>();
     public DbSet<Source> Sources => Set<Source>();
     public DbSet<Material> Materials => Set<Material>();
+    public DbSet<Run> Runs => Set<Run>();
     public GesDeltaDbContext(DbContextOptions<GesDeltaDbContext> options)
         : base(options)
     {

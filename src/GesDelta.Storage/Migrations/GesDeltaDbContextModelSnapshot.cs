@@ -72,6 +72,65 @@ namespace GesDelta.Storage.Migrations
                     b.ToTable("materials", (string)null);
                 });
 
+            modelBuilder.Entity("GesDelta.Core.Models.Run", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text")
+                        .HasColumnName("error");
+
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("finished_at");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("started_at");
+
+                    b.Property<string>("Stats")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("stats");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("status");
+
+                    b.Property<int>("TokensUsed")
+                        .HasColumnType("integer")
+                        .HasColumnName("tokens_used");
+
+                    b.Property<long>("TopicId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("topic_id");
+
+                    b.Property<string>("Trigger")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("trigger");
+
+                    b.HasKey("Id")
+                        .HasName("pk_runs");
+
+                    b.HasIndex("TopicId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_runs_topic_id")
+                        .HasFilter("status = 'Running'");
+
+                    b.HasIndex("TopicId", "StartedAt")
+                        .IsDescending(false, true)
+                        .HasDatabaseName("ix_runs_topic_id_started_at");
+
+                    b.ToTable("runs", (string)null);
+                });
+
             modelBuilder.Entity("GesDelta.Core.Models.Source", b =>
                 {
                     b.Property<long>("Id")
@@ -160,6 +219,18 @@ namespace GesDelta.Storage.Migrations
                         .HasConstraintName("fk_materials_sources_source_id");
 
                     b.Navigation("Source");
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Run", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_runs_topics_topic_id");
+
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Source", b =>
