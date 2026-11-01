@@ -9,7 +9,7 @@ public static class StorageExtensions
         this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<GesDeltaDbContext>(
-            options => options.UseNpgsql(connectionString));
+            options => options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
         return services;
     }
 }
