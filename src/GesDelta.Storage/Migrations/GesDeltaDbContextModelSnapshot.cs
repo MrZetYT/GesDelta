@@ -22,6 +22,56 @@ namespace GesDelta.Storage.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("external_id");
+
+                    b.Property<DateTime>("FirstSeenAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("first_seen_at");
+
+                    b.Property<DateTime>("LastSeenAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("last_seen_at");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("published_at");
+
+                    b.Property<long>("SourceId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("source_id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("title");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("url");
+
+                    b.HasKey("Id")
+                        .HasName("pk_materials");
+
+                    b.HasIndex("SourceId", "ExternalId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_materials_source_id_external_id");
+
+                    b.ToTable("materials", (string)null);
+                });
+
             modelBuilder.Entity("GesDelta.Core.Models.Source", b =>
                 {
                     b.Property<long>("Id")
@@ -98,6 +148,18 @@ namespace GesDelta.Storage.Migrations
                         .HasName("pk_topics");
 
                     b.ToTable("topics", (string)null);
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Source", "Source")
+                        .WithMany()
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_materials_sources_source_id");
+
+                    b.Navigation("Source");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Source", b =>
