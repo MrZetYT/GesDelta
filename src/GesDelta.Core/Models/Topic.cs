@@ -5,6 +5,6 @@ public class Topic
     public long Id { get; set; }
     public required string Name { get; set; }
     public TimeSpan CheckInterval { get; set; }
-    public bool Enabled { get; set; }
+    public bool Enabled { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

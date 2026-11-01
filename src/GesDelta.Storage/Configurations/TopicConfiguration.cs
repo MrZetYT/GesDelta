@@ -8,7 +8,7 @@ public class TopicConfiguration : IEntityTypeConfiguration<Topic>
 {
     public void Configure(EntityTypeBuilder<Topic> builder)
     {
-        builder.ToTable("topics").HasKey(t => t.Name);
+        builder.ToTable("topics").HasKey(t => t.Id);
         builder.Property(t => t.Name).IsRequired();
     }
 }
