@@ -10,6 +10,7 @@ public class GesDeltaDbContext : DbContext
     public DbSet<Material> Materials => Set<Material>();
     public DbSet<Run> Runs => Set<Run>();
     public DbSet<Snapshot> Snapshots => Set<Snapshot>();
+    public DbSet<Change> Changes => Set<Change>();
     
     public GesDeltaDbContext(DbContextOptions<GesDeltaDbContext> options)
         : base(options)

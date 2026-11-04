@@ -22,6 +22,86 @@ namespace GesDelta.Storage.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("GesDelta.Core.Models.Change", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DoneAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("done_at");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text")
+                        .HasColumnName("error");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("kind");
+
+                    b.Property<long>("MaterialId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("material_id");
+
+                    b.Property<long>("NewSnapshotId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("new_snapshot_id");
+
+                    b.Property<long?>("PrevSnapshotId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("prev_snapshot_id");
+
+                    b.Property<long>("RunId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("run_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("status");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("text")
+                        .HasColumnName("summary");
+
+                    b.HasKey("Id")
+                        .HasName("pk_changes");
+
+                    b.HasIndex("CreatedAt")
+                        .HasDatabaseName("ix_changes_created_at");
+
+                    b.HasIndex("DoneAt")
+                        .HasDatabaseName("ix_changes_done_at");
+
+                    b.HasIndex("NewSnapshotId")
+                        .HasDatabaseName("ix_changes_new_snapshot_id");
+
+                    b.HasIndex("PrevSnapshotId")
+                        .HasDatabaseName("ix_changes_prev_snapshot_id");
+
+                    b.HasIndex("RunId")
+                        .HasDatabaseName("ix_changes_run_id");
+
+                    b.HasIndex("Status")
+                        .HasDatabaseName("ix_changes_status")
+                        .HasFilter("status = 'Pending'");
+
+                    b.HasIndex("MaterialId", "Id")
+                        .IsDescending(false, true)
+                        .HasDatabaseName("ix_changes_material_id_id");
+
+                    b.ToTable("changes", (string)null);
+                });
+
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
                 {
                     b.Property<long>("Id")
@@ -256,6 +336,44 @@ namespace GesDelta.Storage.Migrations
                         .HasName("pk_topics");
 
                     b.ToTable("topics", (string)null);
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Change", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_changes_materials_material_id");
+
+                    b.HasOne("GesDelta.Core.Models.Snapshot", "NewSnapshot")
+                        .WithMany()
+                        .HasForeignKey("NewSnapshotId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_changes_snapshots_new_snapshot_id");
+
+                    b.HasOne("GesDelta.Core.Models.Snapshot", "PrevSnapshot")
+                        .WithMany()
+                        .HasForeignKey("PrevSnapshotId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_changes_snapshots_prev_snapshot_id");
+
+                    b.HasOne("GesDelta.Core.Models.Run", "Run")
+                        .WithMany()
+                        .HasForeignKey("RunId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_changes_runs_run_id");
+
+                    b.Navigation("Material");
+
+                    b.Navigation("NewSnapshot");
+
+                    b.Navigation("PrevSnapshot");
+
+                    b.Navigation("Run");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
