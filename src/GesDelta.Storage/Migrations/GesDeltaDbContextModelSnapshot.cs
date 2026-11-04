@@ -131,6 +131,55 @@ namespace GesDelta.Storage.Migrations
                     b.ToTable("runs", (string)null);
                 });
 
+            modelBuilder.Entity("GesDelta.Core.Models.Snapshot", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CleanText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("clean_text");
+
+                    b.Property<string>("ContentHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("content_hash");
+
+                    b.Property<DateTime>("FetchedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("fetched_at");
+
+                    b.Property<long>("MaterialId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("material_id");
+
+                    b.Property<string>("RawText")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("raw_text");
+
+                    b.Property<long>("RunId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("run_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_snapshots");
+
+                    b.HasIndex("RunId")
+                        .HasDatabaseName("ix_snapshots_run_id");
+
+                    b.HasIndex("MaterialId", "FetchedAt")
+                        .IsDescending(false, true)
+                        .HasDatabaseName("ix_snapshots_material_id_fetched_at");
+
+                    b.ToTable("snapshots", (string)null);
+                });
+
             modelBuilder.Entity("GesDelta.Core.Models.Source", b =>
                 {
                     b.Property<long>("Id")
@@ -231,6 +280,27 @@ namespace GesDelta.Storage.Migrations
                         .HasConstraintName("fk_runs_topics_topic_id");
 
                     b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Snapshot", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_snapshots_materials_material_id");
+
+                    b.HasOne("GesDelta.Core.Models.Run", "Run")
+                        .WithMany()
+                        .HasForeignKey("RunId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_snapshots_runs_run_id");
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Run");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Source", b =>
