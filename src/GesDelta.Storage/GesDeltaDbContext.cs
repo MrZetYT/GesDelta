@@ -11,6 +11,7 @@ public class GesDeltaDbContext : DbContext
     public DbSet<Run> Runs => Set<Run>();
     public DbSet<Snapshot> Snapshots => Set<Snapshot>();
     public DbSet<Change> Changes => Set<Change>();
+    public DbSet<Claim> Claims => Set<Claim>();
     
     public GesDeltaDbContext(DbContextOptions<GesDeltaDbContext> options)
         : base(options)
@@ -21,6 +22,7 @@ public class GesDeltaDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(GesDeltaDbContext).Assembly);
+        modelBuilder.HasSequence<long>("claims_id_seq");
         base.OnModelCreating(modelBuilder);
     }
 }

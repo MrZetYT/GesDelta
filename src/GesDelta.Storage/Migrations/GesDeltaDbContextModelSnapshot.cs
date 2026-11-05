@@ -22,6 +22,8 @@ namespace GesDelta.Storage.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.HasSequence("claims_id_seq");
+
             modelBuilder.Entity("GesDelta.Core.Models.Change", b =>
                 {
                     b.Property<long>("Id")
@@ -100,6 +102,41 @@ namespace GesDelta.Storage.Migrations
                         .HasDatabaseName("ix_changes_material_id_id");
 
                     b.ToTable("changes", (string)null);
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Claim", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<long>("CreatedByChangeId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("created_by_change_id");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("text");
+
+                    b.Property<long>("TopicId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("topic_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_claims");
+
+                    b.HasIndex("CreatedByChangeId")
+                        .HasDatabaseName("ix_claims_created_by_change_id");
+
+                    b.HasIndex("TopicId")
+                        .HasDatabaseName("ix_claims_topic_id");
+
+                    b.ToTable("claims", (string)null);
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
@@ -374,6 +411,27 @@ namespace GesDelta.Storage.Migrations
                     b.Navigation("PrevSnapshot");
 
                     b.Navigation("Run");
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Claim", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Change", "CreatedByChange")
+                        .WithMany()
+                        .HasForeignKey("CreatedByChangeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_claims_changes_created_by_change_id");
+
+                    b.HasOne("GesDelta.Core.Models.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_claims_topics_topic_id");
+
+                    b.Navigation("CreatedByChange");
+
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
