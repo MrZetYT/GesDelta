@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/N2pF7rZl0vgk98neXByYpHmXPEQ</id>
+  <title>arXiv Query: search_query=all:neurosymbolic&amp;id_list=&amp;start=0&amp;max_results=10</title>
+  <updated>2026-11-05T14:02:28Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:neurosymbolic&amp;start=0&amp;max_results=10&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>490</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2611.05612v1</id>
+    <title>Whiel: A Neurosymbolic Platform for Certified Relational Program Verification</title>
+    <updated>2026-11-03T20:56:53Z</updated>
+    <link href="https://arxiv.org/abs/2611.05612v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.05612v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present the Whiel (a contraction of Whi(le-R)el) system for Lean-certified reasoning about imperative relational programs. The system can encode containment and equivalence problems for Datalog, its extensions with negation, and the core fragment of graph query languages. It can also represent optimized or incremental evaluation algorithms that are not expressible in the original query language, as well as first-order specifications of integrity constraints, schema mappings, and views arising in data integration, exchange, and sharing. Whiel's program states are database instances, and its imperative structure enables compositional Hoare-style reasoning with first-order relational specifications, using prophecy variables and leveled invariants to support inductive arguments. Whiel supports neurosymbolic discovery of loop invariants whose verification conditions can be checked using the Vampire first-order theorem prover. Counterexamples are fed back into the neurosymbolic pipeline, while proposed solutions are translated into Lean proof certificates. To validate the Whiel system, we evaluate its performance on a curated benchmark suite. In summary, we envision the Whiel system as a tool for tackling mathematically demanding, typically undecidable problems involving complex query and constraint languages, with a high degree of trust in its output.</summary>
+    <category term="cs.DB" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-11-03T20:56:53Z</published>
+    <arxiv:primary_category term="cs.DB"/>
+    <author>
+      <name>Jesse Comer</name>
+    </author>
+    <author>
+      <name>Fangzhu Shen</name>
+    </author>
+    <author>
+      <name>Shuo Zhang</name>
+    </author>
+    <author>
+      <name>Mayur Naik</name>
+    </author>
+    <author>
+      <name>Sudeepa Roy</name>
+    </author>
+    <author>
+      <name>Val Tannen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2611.00158v1</id>
+    <title>Scaling Trusted Autonomy: Towards Generally Capable Verifiable Robots</title>
+    <updated>2026-10-30T08:49:42Z</updated>
+    <link href="https://arxiv.org/abs/2611.00158v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2611.00158v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robots powered by foundation models are increasingly able to interpret open-ended language, recognize unfamiliar objects, and operate across diverse environments. Yet broader capability does not establish that a robot has understood a request, that its actions will produce the intended effects, or that its internal representation still corresponds to reality. Classical symbolic planning provides explicit structure for composition and verification, but traditionally depends on hand-engineered skills and representations. Learned policies can broaden the robot's repertoire, but provide weak guarantees about what will happen and why. This thesis argues that scaling trusted autonomy requires a neurosymbolic approach that unifies the generality of learned models with symbolic structure for robust robot behavior. It explores three complementary directions. First, LIMP uses foundation models and spatial reasoning to ground natural-language instructions in explicit task constraints and instruction-specific semantic maps, enabling task-and-motion planning while exposing the robot's interpretation for inspection. Second, REALM maintains an editable, photorealistic 3D Gaussian scene, predicts the consequences of planned manipulation, and locally reconciles the scene so that subsequent instructions obtain their grounding and planning geometry from an updated state. Third, PACTS learns visuomotor skills that jointly generate action trajectories and predictions of their symbolic effects, supporting skill composition, progress monitoring, and recovery through replanning. Together, these contributions preserve explicit structure for reasoning and verification while broadening how it is obtained, providing a foundation for generally capable robots whose behavior can be assessed under the assumptions of their models.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-30T08:49:42Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Benedict Quartey</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.40414v1</id>
+    <title>Bridging Neural Representations and Symbolic Semantics in Audio Classification</title>
+    <updated>2026-10-29T16:42:13Z</updated>
+    <link href="https://arxiv.org/abs/2610.40414v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.40414v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Deep audio classifiers can achieve strong predictive performance, but their hidden representations remain difficult to interpret. Existing audio explainability methods often focus on input-level attribution, such as waveform segments, spectrogram regions, or acoustic features, and provide limited insight into what hidden neurons encode. Interpreting hidden neurons at the concept level can provide a more meaningful view of what an audio model learns internally. This paper investigates whether hidden neurons in audio classifiers can be associated with human-understandable symbolic acoustic concepts. A model-agnostic neurosymbolic framework is presented for analyzing the final hidden layer of audio classifiers, containing 32 neurons, through symbolic concept induction. The framework is evaluated on two audio classification settings: music genre classification using GTZAN dataset and musical instrument classification using IRMAS dataset. Results show that several hidden neurons can be associated with meaningful induced concepts, and most confirmed neuron-concept pairs are statistically supported using the Mann-Whitney U test. These findings suggest that symbolic concept induction is a promising direction for explaining latent audio representations beyond input-level attribution.</summary>
+    <category term="cs.SD" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-29T16:42:13Z</published>
+    <arxiv:primary_category term="cs.SD"/>
+    <author>
+      <name>Avishek Das</name>
+    </author>
+    <author>
+      <name>Pascal Hitzler</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.31062v1</id>
+    <title>SCOPE: Compiling Natural-Language Policies into Neurosymbolic Predicate Programs</title>
+    <updated>2026-10-22T10:41:13Z</updated>
+    <link href="https://arxiv.org/abs/2610.31062v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.31062v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Policy enforcement for LLM agents has shifted from single-turn content moderation to compound, application-specific policies evaluated over multi-turn transcripts and tool-call trajectories. Fine-tuned guardrail models are efficient but degrade on compound policies, and while LLM-as-a-judge approaches achieve higher accuracy, they incur high inference cost and tend to produce unstable predictions. Neurosymbolic methods offer a natural alternative, decomposing the policy into narrow neural decisions composed under explicit logic. However, existing symbolic layers lack the required expressiveness and are optimized against fixed data rather than the policy itself. To address this, we introduce SCOPE, which compiles a policy into an executable program of neural predicates executed by small models, deterministic extractors, and code that composes their outputs. The program is optimized jointly with its training data, using adversarial generation of counterexamples that target where the program deviates from the policy. We evaluate SCOPE on a benchmark of real-world policy tasks against prompt optimization, task decomposition, and workflow generation methods, achieving the highest average accuracy across tasks and models. Programs optimized with the weakest executor transfer to other models without further optimization. This allows them to be deployed in production on inexpensive models, where they reach accuracy comparable to frontier reasoning models. Unlike these monolithic models, SCOPE produces substantially more stable predictions, and each verdict is interpretable through the predicate outputs that produced it. Additionally, we validate the key components of our method through an ablation study. SCOPE thus enables reliable, interpretable, and efficient policy enforcement at production scale.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-22T10:41:13Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Arnon Mazza</name>
+    </author>
+    <author>
+      <name>Elad Levi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.25996v1</id>
+    <title>Procedural Memory for Language Agents: A Neurosymbolic Perspective on Explicit Goal Structure</title>
+    <updated>2026-10-19T08:19:23Z</updated>
+    <link href="https://arxiv.org/abs/2610.25996v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.25996v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large language models remain unreliable on long-horizon tasks requiring procedural reasoning. We argue that a key cause is the absence of explicit procedural memory: accessible, modifiable knowledge of how tasks are accomplished, distinct from semantic and episodic memory. Goal-Oriented Graphs offer such a representation, encoding goals and prerequisite dependencies as inspectable symbolic structure. We examine their construction, the challenges they pose, and principles for integrating them with neural reasoning.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-19T08:19:23Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Jonathan Leung</name>
+    </author>
+    <author>
+      <name>Zhiqi Shen</name>
+    </author>
+    <author>
+      <name>Deheng Ye</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.19955v1</id>
+    <title>Neurosymbolic Learning of Interpretable World Models</title>
+    <updated>2026-10-14T10:38:30Z</updated>
+    <link href="https://arxiv.org/abs/2610.19955v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.19955v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>World models aim to learn compact representations of an environment from observations, enabling agents to predict future states and plan their behaviour. However, most existing approaches learn black-box representations, with limited ability to incorporate prior knowledge about the world. We introduce Concept-Grounded World Models (CGWMs), a neurosymbolic world model design that instead learns interpretable concept representations. We learn these concepts from observations using explicit and complete knowledge, expressed in temporal logic, that specifies the valid world states and the temporal relations governing their dynamics. Furthermore, we directly use this knowledge by formulating planning as differentiable reasoning, optimising the agent's actions by gradient ascent to satisfy a goal. We experimentally compare CGWM with a purely neural baseline and a neurosymbolic baseline on two game environments. We find that CGWMs ground concepts much more accurately, even over long horizons, resulting in significantly more robust planning both in and out of distribution.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-14T10:38:30Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Riccardo Andreoni</name>
+    </author>
+    <author>
+      <name>Massimiliano Ronzani</name>
+    </author>
+    <author>
+      <name>Chiara Ghidini</name>
+    </author>
+    <author>
+      <name>Alessandro Daniele</name>
+    </author>
+    <author>
+      <name>Emile van Krieken</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.17493v1</id>
+    <title>VeriPIE: Checkable Query Plans and Evidence-Guided Selection for Text-to-SQL</title>
+    <updated>2026-10-12T23:31:04Z</updated>
+    <link href="https://arxiv.org/abs/2610.17493v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.17493v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Financial Artificial Intelligence (AI) governance and model risk management (MRM) emphasize independent validation, transparency, and effective challenge of AI-generated computations. Text-to-SQL translates natural-language questions into Structured Query Language (SQL), but queries that agree on one database can still express different computations. We present VeriPIE, a neurosymbolic framework combining language-model generation with symbolic checks. It ensembles direct SQL generation with QuerySketch, a structured plan language checked by a backend implemented in Lean, a theorem prover and programming language. Plan diagnostics guide repair before SQL generation, while execution agreement and bounded searches for distinguishing databases inform candidate selection. These checks expose malformed plans and hidden disagreement without proving agreement with the user's intent. In single-run experiments on the complete Spider development set, VeriPIE achieves 72.05% test-suite accuracy (745/1,034), compared with DeepEye's 65.67% (679/1,034). Its two-query shortlist covers 78.43% (811 questions), compared with 74.66% for DIN-SQL (772) and 69.05% for DeepEye (714). On BIRD, VeriPIE reaches 68.90% execution accuracy and 73.73% two-query coverage. The central benefit is reviewable evidence about the generated computation: explicit plan checks, repair diagnostics, and concrete disagreements that support safer financial analysis.</summary>
+    <category term="cs.LO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-12T23:31:04Z</published>
+    <arxiv:primary_category term="cs.LO"/>
+    <author>
+      <name>Piyush Jha</name>
+    </author>
+    <author>
+      <name>Cruise Song</name>
+    </author>
+    <author>
+      <name>Zhengyu Li</name>
+    </author>
+    <author>
+      <name>Yatharth Sejpal</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.12303v1</id>
+    <title>Learning Probabilistic Logic Programs with Functional Gradient Guided Language Models</title>
+    <updated>2026-10-08T16:53:32Z</updated>
+    <link href="https://arxiv.org/abs/2610.12303v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.12303v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Declarative logic programs offer a powerful and interpretable abstraction for encoding relational structure and neurosymbolic reasoning, by expressing dependencies as weighted compositional rules. However, inducing them from data remains fundamentally hard, bottlenecked by the combinatorial explosion of symbolic search spaces. LLMs have recently emerged as powerful hypothesis generators, but when used in isolation, they lack the capacity to do systematic inductive reasoning needed to reliably synthesize valid programs that fit complex relational distributions. We introduce grasp (Gradient-boosted Synthesis of Probabilistic logic programs), a neurosymbolic framework that casts relational structure learning as functional gradient boosting in which the weak learner is a first-order rule and the intractable inner search is delegated to an LLM proposal oracle. We evaluate grasp on four relational benchmarks spanning molecular toxicity prediction (Tox21), mutagenesis, and citation matching (Cora), and show that it improves over purely symbolic, neural, and LLM-based baselines, while producing interpretable weighted rule ensembles. By replacing combinatorial search with gradient-guided LLM hypothesis generation, grasp retains boosting guarantees without sacrificing the transparency of symbolic outputs.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-08T16:53:32Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <arxiv:journal_ref>6th International Joint Conference on Learning &amp; Reasoning (IJCLR 2026) 6th International Joint Conference on Learning &amp; Reasoning 6th International Joint Conference on Learning &amp; Reasoning (IJCLR)</arxiv:journal_ref>
+    <author>
+      <name>Saurabh Mathur</name>
+    </author>
+    <author>
+      <name>Sahil Sidheekh</name>
+    </author>
+    <author>
+      <name>Bhavan Vasu</name>
+    </author>
+    <author>
+      <name>Farbod Tavakkoli</name>
+    </author>
+    <author>
+      <name>Prasad Tadepalli</name>
+    </author>
+    <author>
+      <name>Kristian Kersting</name>
+    </author>
+    <author>
+      <name>Sriraam Natarajan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.08095v1</id>
+    <title>Natural Language Questions as an Interface for Knowledge Graphs: QRAKEN Graph Distillation and Semantic Self-Healing</title>
+    <updated>2026-10-06T10:24:26Z</updated>
+    <link href="https://arxiv.org/abs/2610.08095v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.08095v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Natural-language access to RDF knowledge graphs is a core Semantic Web ambition. Large language models (LLMs) have advanced Text-to-SPARQL, yet on unfamiliar graphs they often generate valid queries that misrepresent the populated data model. QRAKEN is a training-free, ontology-agnostic neurosymbolic pipeline grounding generation in empirical graph evidence rather than schema expectations. An offline distiller produces TTQL, a compact description of populated multi-hop patterns, conditional frequencies and path-conditioned literal examples, plus a class-property co-occurrence matrix. Online, TTQL guides the LLM, while deterministic syntax, vocabulary and data-model checks provide diagnostics for iterative refinement. On CK25 (First International Text2SPARQL Challenge), under matched-condition recomputation on a QLever snapshot, QRAKEN achieves strict F1 of 0.643 $\pm$ 0.026 with GPT-4.1 mini and 0.652 $\pm$ 0.012 with GPT-5.4: relative gains of 30% and 32% over the strongest recomputed participant, outperforming systems using the same base model family. Ablations identify TTQL patterns as the dominant driver (+0.31 strict F1 over a shape-only baseline); the refinement loop provides a cheap safety net, rejecting triple patterns unsupported by the co-occurrence matrix. Compared with auto-derived SHACL, TTQL yields 64% higher strict F1, supporting the value of empirical patterns beyond schema exposure. With two local 35B 4-bit open-weight models at zero marginal cost, the same pipeline matches the strongest recomputed participant, and TTQL advantages over shape-only and SHACL baselines persist. Results on a single, relatively small benchmark provide an initial empirical signal; monolithic TTQL injection on very open cross-domain graphs remains the main limitation.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-06T10:24:26Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Remo Grillo</name>
+    </author>
+    <author>
+      <name>Lukas Klic</name>
+    </author>
+    <author>
+      <name>Giovanni Colavizza</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2610.07313v1</id>
+    <title>Rule-Based Languages for Neurosymbolic AI</title>
+    <updated>2026-10-05T19:49:56Z</updated>
+    <link href="https://arxiv.org/abs/2610.07313v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.07313v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Logic programming is increasingly used as the symbolic component of neurosymbolic AI systems. We survey the main rule-based languages in this setting, namely Datalog, answer set, and probabilistic logic programs, along four axes: semantics, expressiveness, neural integration, and evaluation mechanism. We analyse over 50 recent systems and applications, comparing formalism usage across four research areas: databases and programming languages, machine learning, vision, and robotics. We provide a decision matrix mapping application scenarios to required features and close by outlining open problems.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-05T19:49:56Z</published>
+    <arxiv:comment>To appear in the Proceedings of Rules and Reasoning - 10th International Joint Conference, RuleML+RR 2026, Vilnius, Lithuania</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Stefania Dumbrava</name>
+    </author>
+    <author>
+      <name>Efthymia Tsamoura</name>
+    </author>
+  </entry>
+</feed>
