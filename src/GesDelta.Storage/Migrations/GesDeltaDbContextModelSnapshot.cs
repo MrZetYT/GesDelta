@@ -139,6 +139,44 @@ namespace GesDelta.Storage.Migrations
                     b.ToTable("claims", (string)null);
                 });
 
+            modelBuilder.Entity("GesDelta.Core.Models.ClaimEvidence", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ClaimId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("claim_id");
+
+                    b.Property<string>("QuoteOriginal")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("quote_original");
+
+                    b.Property<string>("QuoteRu")
+                        .HasColumnType("text")
+                        .HasColumnName("quote_ru");
+
+                    b.Property<long>("SnapshotId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("snapshot_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_claim_evidence");
+
+                    b.HasIndex("ClaimId")
+                        .HasDatabaseName("ix_claim_evidence_claim_id");
+
+                    b.HasIndex("SnapshotId")
+                        .HasDatabaseName("ix_claim_evidence_snapshot_id");
+
+                    b.ToTable("claim_evidence", (string)null);
+                });
+
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
                 {
                     b.Property<long>("Id")
@@ -432,6 +470,27 @@ namespace GesDelta.Storage.Migrations
                     b.Navigation("CreatedByChange");
 
                     b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.ClaimEvidence", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Claim", "Claim")
+                        .WithMany()
+                        .HasForeignKey("ClaimId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_claim_evidence_claims_claim_id");
+
+                    b.HasOne("GesDelta.Core.Models.Snapshot", "Snapshot")
+                        .WithMany()
+                        .HasForeignKey("SnapshotId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_claim_evidence_snapshots_snapshot_id");
+
+                    b.Navigation("Claim");
+
+                    b.Navigation("Snapshot");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
