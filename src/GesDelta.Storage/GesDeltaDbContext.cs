@@ -13,6 +13,8 @@ public class GesDeltaDbContext : DbContext
     public DbSet<Change> Changes => Set<Change>();
     public DbSet<Claim> Claims => Set<Claim>();
     public DbSet<ClaimEvidence> ClaimEvidences => Set<ClaimEvidence>();
+    public DbSet<Document> Documents => Set<Document>();
+    public DbSet<DocumentVersion> DocumentVersions => Set<DocumentVersion>();
     
     public GesDeltaDbContext(DbContextOptions<GesDeltaDbContext> options)
         : base(options)

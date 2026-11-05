@@ -177,6 +177,81 @@ namespace GesDelta.Storage.Migrations
                     b.ToTable("claim_evidence", (string)null);
                 });
 
+            modelBuilder.Entity("GesDelta.Core.Models.Document", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("kind");
+
+                    b.Property<long>("TopicId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("topic_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_documents");
+
+                    b.HasIndex("TopicId")
+                        .HasDatabaseName("ix_documents_topic_id");
+
+                    b.ToTable("documents", (string)null);
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.DocumentVersion", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<long>("DocumentId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("document_id");
+
+                    b.Property<string>("FileHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_hash");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("file_path");
+
+                    b.Property<long>("RunId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("run_id");
+
+                    b.Property<int>("VersionNo")
+                        .HasColumnType("integer")
+                        .HasColumnName("version_no");
+
+                    b.HasKey("Id")
+                        .HasName("pk_document_versions");
+
+                    b.HasIndex("RunId")
+                        .HasDatabaseName("ix_document_versions_run_id");
+
+                    b.HasIndex("DocumentId", "VersionNo")
+                        .IsUnique()
+                        .HasDatabaseName("ix_document_versions_document_id_version_no");
+
+                    b.ToTable("document_versions", (string)null);
+                });
+
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
                 {
                     b.Property<long>("Id")
@@ -491,6 +566,39 @@ namespace GesDelta.Storage.Migrations
                     b.Navigation("Claim");
 
                     b.Navigation("Snapshot");
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.Document", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_documents_topics_topic_id");
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("GesDelta.Core.Models.DocumentVersion", b =>
+                {
+                    b.HasOne("GesDelta.Core.Models.Document", "Document")
+                        .WithMany()
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_document_versions_documents_document_id");
+
+                    b.HasOne("GesDelta.Core.Models.Run", "Run")
+                        .WithMany()
+                        .HasForeignKey("RunId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_document_versions_runs_run_id");
+
+                    b.Navigation("Document");
+
+                    b.Navigation("Run");
                 });
 
             modelBuilder.Entity("GesDelta.Core.Models.Material", b =>
