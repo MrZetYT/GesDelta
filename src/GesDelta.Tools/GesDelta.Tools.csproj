@@ -10,4 +10,8 @@
       <ProjectReference Include="..\GesDelta.Core\GesDelta.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.ServiceModel.Syndication" Version="10.0.14" />
+    </ItemGroup>
+
 </Project>

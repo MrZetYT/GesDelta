@@ -17,6 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="..\Data\**\*" Link="Data\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
