@@ -8,5 +8,6 @@ public enum FetchFailureReason
     FormatChanged,
     Http404,
     Http403,
-    RobotsDisallowed
+    RobotsDisallowed,
+    InvalidConfig
 }
