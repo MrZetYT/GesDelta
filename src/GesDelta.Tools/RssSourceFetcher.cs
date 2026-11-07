@@ -27,7 +27,7 @@ public class RssSourceFetcher : ISourceFetcher
 
             foreach (var entry in feed.Items)
             {
-                var url = entry.Links.FirstOrDefault()?.Uri.ToString() ?? "";
+                var url = UrlCanonicalizer.Canonicalize(entry.Links.FirstOrDefault()?.Uri.AbsoluteUri ?? "");
                 
                 var externalId = string.IsNullOrWhiteSpace(entry.Id) ? url : entry.Id;
 
