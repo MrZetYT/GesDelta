@@ -59,7 +59,7 @@ Detector добавлен отдельным шагом: Parser не знает 
 
 **Инструменты:** ISourceFetcher (реализации Rss / Arxiv / Html), IRobotsPolicy.
 **Критерий «принято»:** ответ получен. Пустая выдача не ошибка (поведение при пустом ответе: 05).
-**При отказе:** `reason` = `timeout | http_5xx | http_429 | format_changed | http_404 | http_403 | robots_disallowed`. Временные сбои: повтор внутри Collector с паузой. Постоянные: источник помечается `failed`, запуск продолжается.
+**При отказе:** `reason` = `timeout | http_5xx | http_429 | format_changed | http_404 | http_403 | robots_disallowed | invalid_config`. Временные сбои: повтор внутри Collector с паузой. Постоянные: источник помечается `failed`, запуск продолжается. `invalid_config` постоянная ошибка настройки источника: без повторов, источник `failed`
 **Лимит итераций:** 3 повтора, паузы 2/5/10 с (07).
 **Открыто:** Решено в 05, раздел 4.1 (fullText = auto).
 
