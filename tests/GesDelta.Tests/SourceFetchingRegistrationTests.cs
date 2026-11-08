@@ -64,4 +64,15 @@ public class SourceFetchingRegistrationTests
 
         Assert.That(options.GetDelayMs("habr.com"), Is.EqualTo(10000));
     }
+    
+    [Test]
+    public void FetcherLookup_ReturnsDecoratorForKnownTypesAndNullForUnknown()
+    {
+        using var provider = BuildProvider();
+        var getFetcher = provider.GetRequiredService<Func<SourceType, ISourceFetcher?>>();
+
+        Assert.That(getFetcher(SourceType.Rss), Is.TypeOf<RetryingSourceFetcher>());
+        Assert.That(getFetcher(SourceType.Arxiv), Is.TypeOf<RetryingSourceFetcher>());
+        Assert.That(getFetcher((SourceType)999), Is.Null);
+    }
 }

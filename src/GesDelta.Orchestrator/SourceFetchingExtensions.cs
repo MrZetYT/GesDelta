@@ -18,6 +18,7 @@ public static class SourceFetchingExtensions
 
         services.AddSingleton<HostThrottle>();
         services.TryAddSingleton(TimeProvider.System);
+        services.AddTransient<Func<SourceType, ISourceFetcher?>>(sp => type => sp.GetKeyedService<ISourceFetcher>(type));
         
         AddFetcher<RssSourceFetcher>(services, SourceType.Rss);
         AddFetcher<ArxivSourceFetcher>(services, SourceType.Arxiv);
