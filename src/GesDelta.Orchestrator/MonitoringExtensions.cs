@@ -1,4 +1,5 @@
-﻿using GesDelta.Storage;
+﻿using GesDelta.Core.Options;
+using GesDelta.Storage;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,8 @@ public static class MonitoringExtensions
                                ?? throw new InvalidOperationException("Connection string is not found ConnectionStrings:Default");
 
         builder.Services.AddStorage(connectionString);
+        
+        builder.Services.Configure<SourcesOptions>(builder.Configuration.GetSection("Sources"));
 
         builder.Services.AddHostedService<StartupHostedService>(); //Планировщик регистрируется ниже
 
