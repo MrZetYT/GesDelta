@@ -80,7 +80,7 @@ Detector добавлен отдельным шагом: Parser не знает 
 
 **Инструменты:** IContentExtractor (SmartReader/AngleSharp), нормализация по 06, SHA256.
 **Критерий «принято»:** `cleanText` не пустой.
-**При отказе:** `{ "ok": false, "reason": "parse_error" }`, материал пропускается и считается в `stats.failed`. Возврат в Collector не делается (D-025). Проверку «короче 20% прошлого снимка» делает Detector: ему нужна БД.
+**При отказе:** `{ "ok": false, "reason": "EmptyText | Unsupported" }`, материал пропускается и считается в `stats.failed`. Возврат в Collector не делается (D-025). Проверку «короче 20% прошлого снимка» делает Detector: ему нужна БД.
 
 ## Агент: Detector (детектор изменений)
 

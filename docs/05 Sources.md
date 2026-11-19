@@ -111,13 +111,12 @@ Collector отдаёт единый вид (03): `externalId, title, url, publis
 - **ETag / If-Modified-Since:** не делаем. Нагрузка мизерная (раз в неделю), хэш защищает от лишней работы.
 
 ```json
-"Sources": {
-  "UserAgent": "GesDelta/1.0 (<контакт>)",
-  "HostDelayMs": 1000,
-  "HostDelaysMs": { "habr.com": 10000 },
-  "ArxivDelayMs": 3000,
-  "RssFullTextMinChars": 1500,
-  "MaxNewMaterialsPerRun": 10,
-  "MaxItemsPerSource": 20
+"Sources": {  
+    "UserAgent": "GesDelta/1.0 (+contact-not-set)",  
+    "HostDelayMs": 1000,  
+    "HostDelaysMs": { "habr.com": 10000, "export.arxiv.org": 3000 },  
+    "RssFullTextMinChars": 1500,  
+    "MaxNewMaterialsPerRun": 10,  
+    "MaxItemsPerSource": 20  
 }
 ```
