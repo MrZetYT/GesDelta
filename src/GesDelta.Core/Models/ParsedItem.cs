@@ -1,6 +1,6 @@
 ﻿namespace GesDelta.Core.Models;
 
-public record ParsedItem(
+public sealed record ParsedItem(
     string ExternalId,
     string Title,
     string Url,

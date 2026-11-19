@@ -4,20 +4,19 @@ namespace GesDelta.Core.Models;
 
 public sealed record ParseResult
 {
-    public bool Ok { get; }
+    public bool Ok => Item is not null;
     public ParsedItem? Item { get; }
     public ParseFailureReason? Reason { get; }
 
-    private ParseResult(bool ok, ParsedItem? item, ParseFailureReason? reason)
+    private ParseResult(ParsedItem? item, ParseFailureReason? reason)
     {
-        Ok = ok;
         Item = item;
         Reason = reason;
     }
 
     public static ParseResult Success(ParsedItem item) =>
-        new(true, item, null);
+        new(item, null);
 
     public static ParseResult Failure(ParseFailureReason reason) =>
-        new(false, null, reason);
+        new(null, reason);
 }
