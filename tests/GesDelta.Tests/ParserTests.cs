@@ -20,7 +20,7 @@ public class ParserTests
     [Test]
     public void Parse_HtmlAnnouncement_ReturnsCleanTextAndHash()
     {
-        var result = _parser.Parse(Item("<p>Первый абзац</p><p>Второй абзац</p>"));
+        var result = _parser.Parse(Item("<p>Первый абзац</p><p>Второй абзац</p>"), SourceType.Html);
 
         Assert.That(result.Ok, Is.True);
         Assert.That(result.Reason, Is.Null);
@@ -38,7 +38,7 @@ public class ParserTests
             externalId: "id-42",
             title: "Моя статья",
             url: "https://example.com/42",
-            publishedAt: published));
+            publishedAt: published), SourceType.Html);
 
         Assert.That(result.Item!.ExternalId, Is.EqualTo("id-42"));
         Assert.That(result.Item.Title, Is.EqualTo("Моя статья"));
@@ -49,7 +49,7 @@ public class ParserTests
     [Test]
     public void Parse_NullPublishedAt_StaysNull()
     {
-        var result = _parser.Parse(Item("<p>Текст</p>", publishedAt: null));
+        var result = _parser.Parse(Item("<p>Текст</p>", publishedAt: null), SourceType.Html);
 
         Assert.That(result.Item!.PublishedAt, Is.Null);
     }
@@ -57,7 +57,7 @@ public class ParserTests
     [Test]
     public void Parse_ContentHash_IsHashOfCleanText()
     {
-        var result = _parser.Parse(Item("<p>Привет &amp; пока</p>"));
+        var result = _parser.Parse(Item("<p>Привет &amp; пока</p>"), SourceType.Html);
 
         Assert.That(result.Item!.CleanText, Is.EqualTo("Привет & пока"));
         Assert.That(result.Item.ContentHash,
@@ -67,8 +67,8 @@ public class ParserTests
     [Test]
     public void Parse_SameInput_GivesSameHash()
     {
-        var a = _parser.Parse(Item("<p>Текст анонса</p>"));
-        var b = _parser.Parse(Item("<p>Текст анонса</p>"));
+        var a = _parser.Parse(Item("<p>Текст анонса</p>"), SourceType.Html);
+        var b = _parser.Parse(Item("<p>Текст анонса</p>"), SourceType.Html);
 
         Assert.That(a.Item!.ContentHash, Is.EqualTo(b.Item!.ContentHash));
     }
@@ -76,8 +76,8 @@ public class ParserTests
     [Test]
     public void Parse_DifferentText_GivesDifferentHash()
     {
-        var a = _parser.Parse(Item("<p>Текст анонса</p>"));
-        var b = _parser.Parse(Item("<p>Текст анонсa!</p>"));
+        var a = _parser.Parse(Item("<p>Текст анонса</p>"), SourceType.Html);
+        var b = _parser.Parse(Item("<p>Текст анонсa!</p>"), SourceType.Html);
 
         Assert.That(a.Item!.ContentHash, Is.Not.EqualTo(b.Item!.ContentHash));
     }
@@ -85,9 +85,9 @@ public class ParserTests
     [Test]
     public void Parse_DynamicDateLine_DoesNotChangeHash()
     {
-        var without = _parser.Parse(Item("<p>Первая строка<br>Вторая строка</p>"));
+        var without = _parser.Parse(Item("<p>Первая строка<br>Вторая строка</p>"), SourceType.Html);
         var with = _parser.Parse(Item(
-            "<p>Первая строка</p><p>Обновлено 08.10.2026</p><p>Вторая строка</p>"));
+            "<p>Первая строка</p><p>Обновлено 08.10.2026</p><p>Вторая строка</p>"), SourceType.Html);
 
         // разные разметки, но после нормализации динамическая строка не влияет
         Assert.That(with.Ok, Is.True);
@@ -97,7 +97,7 @@ public class ParserTests
     [Test]
     public void Parse_TrailingReadMore_IsRemoved()
     {
-        var result = _parser.Parse(Item("<p>Анонс статьи</p><p>Читать далее</p>"));
+        var result = _parser.Parse(Item("<p>Анонс статьи</p><p>Читать далее</p>"), SourceType.Html);
 
         Assert.That(result.Ok, Is.True);
         Assert.That(result.Item!.CleanText, Is.EqualTo("Анонс статьи"));
@@ -112,7 +112,7 @@ public class ParserTests
     [TestCase("<p>Читать далее</p>")]
     public void Parse_NoUsefulText_ReturnsEmptyTextFailure(string rawText)
     {
-        var result = _parser.Parse(Item(rawText));
+        var result = _parser.Parse(Item(rawText), SourceType.Html);
 
         Assert.That(result.Ok, Is.False);
         Assert.That(result.Item, Is.Null);
@@ -126,7 +126,7 @@ public class ParserTests
         const string abstractText =
             "Neurosymbolic systems combine neural networks with symbolic reasoning.";
 
-        var result = _parser.Parse(Item(abstractText));
+        var result = _parser.Parse(Item(abstractText), SourceType.Html);
 
         Assert.That(result.Ok, Is.True);
         Assert.That(result.Item!.CleanText, Is.EqualTo(abstractText));

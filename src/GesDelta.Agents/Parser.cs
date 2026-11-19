@@ -6,9 +6,11 @@ namespace GesDelta.Agents;
 
 public class Parser : IParser
 {
-    public ParseResult Parse(FetchedItem item)
+    public ParseResult Parse(FetchedItem item, SourceType sourceType)
     {
-        var text = HtmlToText.Convert(item.RawText);
+        var text = sourceType == SourceType.Arxiv
+            ? item.RawText
+            : HtmlToText.Convert(item.RawText);
 
         text = TextNormalizer.Normalize(text);
 

@@ -1,8 +1,9 @@
-﻿using GesDelta.Core.Models;
+﻿using GesDelta.Core.Enums;
+using GesDelta.Core.Models;
 
 namespace GesDelta.Core.Interfaces;
 
 public interface IParser
 {
-    ParseResult Parse(FetchedItem item);
+    ParseResult Parse(FetchedItem item, SourceType sourceType);
 }
