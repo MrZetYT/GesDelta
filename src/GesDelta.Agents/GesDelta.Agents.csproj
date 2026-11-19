@@ -11,4 +11,8 @@
       <ProjectReference Include="..\GesDelta.Storage\GesDelta.Storage.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AngleSharp" Version="1.10.5" />
+    </ItemGroup>
+
 </Project>

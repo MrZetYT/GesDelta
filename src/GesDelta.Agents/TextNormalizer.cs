@@ -32,11 +32,12 @@ public static class TextNormalizer
         var current = new List<string>();
         foreach (var line in lines)
         { 
-            var currentLine = DynamicDate.Replace(line, "");
-
-            currentLine = Counter.Replace(currentLine, "");
+            if (DynamicDate.IsMatch(line))
+                continue;
+            if (Counter.IsMatch(line))
+                continue;
             
-            if (currentLine.Length == 0)
+            if (line.Length == 0)
             {
                 if (current.Count > 0)
                 {
@@ -46,7 +47,7 @@ public static class TextNormalizer
             }
             else
             {
-                current.Add(currentLine);
+                current.Add(line);
             }
         }
         if (current.Count > 0)

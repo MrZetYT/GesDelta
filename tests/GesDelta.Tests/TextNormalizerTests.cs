@@ -61,4 +61,13 @@ public class TextNormalizerTests
 
         Assert.That(after, Is.EqualTo(before));
     }
+    
+    [Test]
+    public void Normalize_DynamicDateInsideParagraph_DoesNotSplitParagraph()
+    {
+        var without = TextNormalizer.Normalize("A\nB");
+        var with = TextNormalizer.Normalize("A\nОбновлено 08.10.2026\nB");
+
+        Assert.That(with, Is.EqualTo(without));
+    }
 }
