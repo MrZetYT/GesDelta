@@ -25,6 +25,7 @@ public class Parser : IParser
             item.Url,
             item.PublishedAt,
             text,
+            item.RawText,
             textHash));
     }
 }

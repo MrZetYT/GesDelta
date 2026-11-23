@@ -6,4 +6,5 @@ public sealed record ParsedItem(
     string Url,
     DateTime? PublishedAt,
     string CleanText,
+    string RawText,
     string ContentHash);

@@ -172,13 +172,13 @@ public class CollectParsePipelineTests
                  })
         {
             var (_, parsed) = await RunAsync(file, type);
-            TestContext.WriteLine($"=== {file}: {parsed.Count} записей ===");
+            TestContext.Out.WriteLine($"=== {file}: {parsed.Count} записей ===");
 
             foreach (var (item, result) in parsed.Take(3))
             {
                 var text = result.Item?.CleanText ?? "<FAILURE>";
                 var preview = text.Length > 200 ? text[..200] : text;
-                TestContext.WriteLine(
+                TestContext.Out.WriteLine(
                     $"[{item.Title}] len={text.Length}\n{preview.Replace("\n", "⏎")}\n");
             }
         }

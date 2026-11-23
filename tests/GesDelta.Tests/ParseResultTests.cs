@@ -11,6 +11,7 @@ public class ParseResultTests
         Url: "https://example.com/a",
         PublishedAt: null,
         CleanText: "Text",
+        RawText:"Text",
         ContentHash: "abc123");
 
     [Test]
