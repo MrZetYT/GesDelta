@@ -1,0 +1,18 @@
+﻿{
+  "topic": "гибридные интеллектуальные системы",
+  "checkIntervalDays": 7,
+  "sources": [
+    {
+      "name": "habr-ml",
+      "type": "Rss",
+      "url": "https://habr.com/ru/rss/hubs/machine_learning/articles/?fl=ru",
+      "config": { "fullText": "auto" }
+    },
+    {
+      "name": "arxiv-neurosymbolic",
+      "type": "Arxiv",
+      "url": "https://export.arxiv.org/api/query",
+      "config": { "query": "neurosymbolic", "maxItems": 10 }
+    }
+  ]
+}

@@ -7,6 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5A7C706A-5181-47D1-9220-2D66376BFDDF}"
 	ProjectSection(SolutionItems) = preProject
 		docs\NewFile1.txt = docs\NewFile1.txt
+		docs\demo-setup.json = docs\demo-setup.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prompts", "prompts", "{CFCFF2F3-4F72-47F2-AA17-A729B6DE875C}"

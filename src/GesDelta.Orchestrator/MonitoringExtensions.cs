@@ -1,4 +1,5 @@
-﻿using GesDelta.Storage;
+﻿using GesDelta.Core.Interfaces;
+using GesDelta.Storage;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,8 @@ public static class MonitoringExtensions
         builder.Services.AddSourceFetching(builder.Configuration);
         
         builder.Services.AddHostedService<StartupHostedService>(); //Планировщик регистрируется ниже
+
+        builder.Services.AddScoped<IMonitoringService, MonitoringService>();
 
         return builder;
     }
