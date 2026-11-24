@@ -68,15 +68,25 @@ Detector добавлен отдельным шагом: Parser не знает 
 **Роль:** Превратить сырую запись в нормализованный текст.
 **Тип:** код **Модель:** нет
 
-**Вход:** `{ "item": { /* из Collector */ }, "sourceType": "Rss", "config": {} }`
+**Вход:** `{ "item": { /* FetchedItem из Collector */ }, "sourceType": "Rss" }`
 
-Для `fromPage = true` вызывает `IContentExtractor`, иначе только чистит HTML ленты. В сеть не ходит.
+Как получается текст (D-061):
+
+| sourceType / fromPage | rawText | Что делает Parser |
+|---|---|---|
+| Rss, `fromPage = false` | HTML-фрагмент ленты | HtmlToText, затем нормализация |
+| Arxiv | обычный текст (title + abstract) | только нормализация. HTML-разбор испортил бы текст вроде `a<b` |
+| Html, Rss с `fromPage = true` | HTML страницы | `IContentExtractor`, затем нормализация (пока не реализовано) |
+
+В сеть не ходит.
 
 **Выход:**
 
 ```json
-{ "ok": true, "externalId": "", "title": "", "url": "", "publishedAt": null, "cleanText": "", "contentHash": "" }
+{ "ok": true, "externalId": "", "title": "", "url": "", "publishedAt": null, "cleanText": "", "rawText": "", "contentHash": "" }
 ```
+
+`rawText` = `item.rawText` без изменений, нужен Detector для `snapshots.raw_text`
 
 **Инструменты:** IContentExtractor (SmartReader/AngleSharp), нормализация по 06, SHA256.
 **Критерий «принято»:** `cleanText` не пустой.
