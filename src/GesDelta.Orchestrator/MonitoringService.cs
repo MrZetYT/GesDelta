@@ -6,7 +6,7 @@ using GesDelta.Storage;
 
 namespace GesDelta.Orchestrator;
 
-public class MonitoringService(GesDeltaDbContext db) : IMonitoringService
+public class MonitoringService(GesDeltaDbContext db, CollectRunner collect) : IMonitoringService
 {
     public async Task<long> StartMonitoringAsync(StartMonitoringRequest request, CancellationToken ct)
     {
@@ -39,6 +39,9 @@ public class MonitoringService(GesDeltaDbContext db) : IMonitoringService
 
         return topic.Id;
     }
+    
+    public Task<CollectReport> CollectAsync(long topicId, CancellationToken ct) =>
+        collect.CollectAsync(topicId, ct);
 
     private static void Validate(StartMonitoringRequest request)
     {

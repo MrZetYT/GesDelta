@@ -30,7 +30,7 @@ public class MonitoringServiceTests : DbTestBase
     private async Task<long> StartAsync(StartMonitoringRequest request)
     {
         await using var db = NewDb();
-        return await new MonitoringService(db)
+        return await new MonitoringService(db, null!)
             .StartMonitoringAsync(request, CancellationToken.None);
     }
 
