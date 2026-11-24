@@ -35,6 +35,7 @@ public static class MonitoringExtensions
         
         builder.Services.AddHostedService<StartupHostedService>(); //Планировщик регистрируется ниже
 
+        builder.Services.AddScoped<Collector>();
         builder.Services.AddScoped<IMonitoringService, MonitoringService>();
         builder.Services.AddScoped<CollectRunner>();
         builder.Services.AddScoped<TemporaryMaterialWriter>();
