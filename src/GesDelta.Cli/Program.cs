@@ -3,6 +3,7 @@ using GesDelta.Cli;
 using GesDelta.Core.Interfaces;
 using GesDelta.Core.Models;
 using GesDelta.Orchestrator;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -82,7 +83,7 @@ catch (Exception ex) when (ex is FormatException or ArgumentException or IOExcep
     Console.Error.WriteLine(ex.Message);
     return 1;
 }
-catch (Npgsql.NpgsqlException ex)
+catch (DbUpdateException ex)
 {
     Console.Error.WriteLine($"Database error: {ex.Message}");
     return 1;

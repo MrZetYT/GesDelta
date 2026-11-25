@@ -25,7 +25,7 @@
 **Источники демо (подобраны на реальных данных):**
 
 - **Arxiv:** `url` = `https://export.arxiv.org/api/query`, `config` = `{ "query": "neurosymbolic", "maxItems": 10 }`. Свежие работы по теме.
-- **Rss:** `url` = `https://habr.com/ru/rss/hubs/machine_learning/articles/?fl=ru`, `config` = `{ "fullText": "auto" }`. В ленте 40 записей, в `description` только анонс (~800 символов), поэтому при `auto` страница докачивается. Хаб широкий, часть материалов нерелевантна теме: полезно для проверки `relevant = false`.
+- **Rss:** `url` = `https://habr.com/ru/rss/hubs/machine_learning/articles/?fl=ru`, `config` = `{ "fullText": "never" }`. В ленте 40 записей, в `description` только анонс (~800 символов), поэтому при `auto` страница докачивается. Хаб широкий, часть материалов нерелевантна теме: полезно для проверки `relevant = false`.
 	- `robots.txt` разрешает статьи; для `*` стоит `Crawl-delay: 10`; докачка идёт по чистому адресу без `utm`
 
 ## 3. Как пользователь задаёт источник

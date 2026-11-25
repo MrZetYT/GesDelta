@@ -70,7 +70,7 @@ Detector добавлен отдельным шагом: Parser не знает 
 
 **Вход:** `{ "item": { /* FetchedItem из Collector */ }, "sourceType": "Rss" }`
 
-Как получается текст (D-061):
+Как получается текст (D-065):
 
 | sourceType / fromPage | rawText | Что делает Parser |
 |---|---|---|

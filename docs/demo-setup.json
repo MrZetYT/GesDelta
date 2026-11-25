@@ -6,7 +6,7 @@
       "name": "habr-ml",
       "type": "Rss",
       "url": "https://habr.com/ru/rss/hubs/machine_learning/articles/?fl=ru",
-      "config": { "fullText": "auto" }
+      "config": { "fullText": "never" }
     },
     {
       "name": "arxiv-neurosymbolic",

@@ -120,7 +120,7 @@
 | 18  | Часовой пояс в QA                               | локальное время, перевод в UTC                               | D-057         |
 | 19  | У `sinceLastRun` нет `LIMIT`                    | считает код                                                  | 04            |
 | 20  | Фраза «за этот период»                          | две фразы по типу периода                                    | D-057         |
-| 21  | Откуда Detector берёт `raw_text` для Snapshot   | `rawText` в выходе Parser                                    | 03, D-061     |
-| 22  | HtmlToText обрезает обычный текст arXiv (`a<b`) | Parser принимает `sourceType`, для Arxiv HTML не разбирается | 03, 06, D-061 |
+| 21  | Откуда Detector берёт `raw_text` для Snapshot   | `rawText` в выходе Parser                                    | 03, D-065     |
+| 22  | HtmlToText обрезает обычный текст arXiv (`a<b`) | Parser принимает `sourceType`, для Arxiv HTML не разбирается | 03, 06, D-065 |
 
 Заметка без правки: `period = null` в QA то же, что `sinceLastRun`, поэтому «Что нового по X?» ищет только в последней группе. Пересмотрим после этапа 5.
