@@ -1,0 +1,15 @@
+﻿{
+  "changeId": 1,
+  "topic": "гибридные интеллектуальные системы",
+  "kind": "Updated",
+  "material": {
+    "title": "ClosureBench: A Benchmark for Reasoning under Closure Assumptions",
+    "url": "https://arxiv.org/abs/2611.26335v1",
+    "publishedAt": "2026-11-19 16:15:04.000000 +00:00"
+  },
+  "textFile": "text.txt",
+  "textIsFragment": true,
+  "description": { "sections": [] },
+  "existingClaims": [],
+  "feedback": null
+}

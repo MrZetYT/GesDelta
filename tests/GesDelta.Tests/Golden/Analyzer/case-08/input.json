@@ -1,0 +1,15 @@
+﻿{
+  "changeId": 1,
+  "topic": "гибридные интеллектуальные системы",
+  "kind": "New",
+  "material": {
+    "title": "Synthetic Neurosymbolic Task Generation with Controlled Constraint Complexity",
+    "url": "https://arxiv.org/abs/2611.19597v2",
+    "publishedAt": "2026-11-14 20:04:44.000000 +00:00"
+  },
+  "textFile": "text.txt",
+  "textIsFragment": false,
+  "description": { "sections": [] },
+  "existingClaims": [],
+  "feedback": null
+}

@@ -1,0 +1,16 @@
+﻿{
+  "changeId": 1,
+  "topic": "гибридные интеллектуальные системы",
+  "kind": "New",
+  "material": {
+    "title": "A Neurosymbolic Multimodal Framework for 30-Day Diabetic Readmission Prediction: Integrating Structured EHR Data, Dense Clinical Embeddings, and Knowledge-Grounded Symbolic Extraction",
+    "url": "https://arxiv.org/abs/2611.25236v1",
+    "publishedAt": "2026-11-18 22:12:31.000000 +00:00"
+  },
+  "textFile": "text.txt",
+  "textIsFragment": false,
+  "description": { "sections": [] },
+  "existingClaims": [],
+  "feedback": null,
+  "maxTextChars": 1000
+}

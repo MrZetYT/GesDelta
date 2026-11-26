@@ -1,0 +1,15 @@
+﻿{
+  "changeId": 1,
+  "topic": "гибридные интеллектуальные системы",
+  "kind": "New",
+  "material": {
+    "title": "Taxonomy-Agnostic Neurosymbolic Grounding of Robot Kinematics",
+    "url": "https://arxiv.org/abs/2611.13850v1",
+    "publishedAt": "2026-11-10 10:11:30.000000 +00:00"
+  },
+  "textFile": "text.txt",
+  "textIsFragment": false,
+  "description": { "sections": [] },
+  "existingClaims": [],
+  "feedback": null
+}

@@ -1,0 +1,29 @@
+﻿{
+  "changeId": 1,
+  "topic": "языковые модели",
+  "kind": "New",
+  "material": {
+    "title": "Z.ai выпустили GLM-5.4 на архитектуре Loop Transformer и пообещали открыть веса",
+    "url": "https://habr.com/ru/articles/1111176",
+    "publishedAt": "2026-11-23T10:30:28Z"
+  },
+  "textFile": "text.txt",
+  "textIsFragment": false,
+  "description": {
+    "sections": [
+      {
+        "sectionId": "модели-z-ai",
+        "title": "Модели Z.ai",
+        "text": "GLM-5.4 стала первой флагманской моделью Z.ai на архитектуре Loop Transformer, где одни и те же слои применяются к токену повторно. [c:42]"
+      }
+    ]
+  },
+  "existingClaims": [
+    {
+      "claimId": 42,
+      "sectionId": "модели-z-ai",
+      "text": "GLM-5.4 — первая флагманская модель Z.ai на архитектуре Loop Transformer, где одни и те же слои применяются к токену повторно"
+    }
+  ],
+  "feedback": null
+}

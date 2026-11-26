@@ -1,0 +1,15 @@
+﻿{
+  "changeId": 1,
+  "topic": "гибридные интеллектуальные системы",
+  "kind": "New",
+  "material": {
+    "title": "Prove What You Can: Hybrid Neurosymbolic Reasoning for Logical Natural Language Inference",
+    "url": "https://arxiv.org/abs/2611.10319v1",
+    "publishedAt": "2026-11-06 23:36:38.000000 +00:00"
+  },
+  "textFile": "text.txt",
+  "textIsFragment": false,
+  "description": { "sections": [] },
+  "existingClaims": [],
+  "feedback": null
+}
