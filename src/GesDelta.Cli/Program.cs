@@ -10,20 +10,33 @@ using Microsoft.Extensions.Logging;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-const string usage = "Usage:\n  setup <path-to-json>\n  collect <topicId>";
+const string usage =
+    "Usage:\n" +
+    "  setup <path-to-json>\n" +
+    "  collect <topicId>\n" +
+    "  detect <topicId>";
 
-if (args.Length < 2 || args[0] is not ("setup" or "collect"))
+if (args.Length < 2 ||
+    args[0] is not ("setup" or "collect" or "detect"))
 {
     Console.WriteLine(usage);
     return 1;
 }
 
 var command = args[0];
+
 long topicId = 0;
-if (command == "collect" && !long.TryParse(args[1], out topicId))
+
+if (command is "collect" or "detect")
 {
-    Console.Error.WriteLine($"Invalid topic id: '{args[1]}'");
-    return 1;
+    if (!long.TryParse(args[1], out topicId) ||
+        topicId <= 0)
+    {
+        Console.Error.WriteLine(
+            $"Invalid topic id: '{args[1]}'");
+
+        return 1;
+    }
 }
 
 using var cts = new CancellationTokenSource();
@@ -70,7 +83,7 @@ try
     var report = await service.CollectAsync(topicId, cts.Token);
 
     logger.LogInformation("Collect finished, run = {RunId}", report.RunId);
-    PrintReport(report);
+    PrintReport(report, command == "detect");
     return report.Sources.All(s => !s.FetchOk) ? 1 : 0;
 }
 catch (OperationCanceledException)
@@ -93,21 +106,59 @@ finally
     await host.StopAsync();
 }
 
-static void PrintReport(CollectReport report)
+static void PrintReport(
+    CollectReport report,
+    bool detailed)
 {
     Console.WriteLine($"Run {report.RunId}");
+
+    if (detailed)
+    {
+        Console.WriteLine("\nDetection results:");
+
+        foreach (var item in report.Detections)
+        {
+            var change = item.ChangeId is long id
+                ? $" (change #{id})"
+                : "";
+
+            Console.WriteLine(
+                $"  [{item.Verdict,-10}] " +
+                $"{item.SourceName}: {item.Title}{change}");
+        }
+    }
+
+    Console.WriteLine("\nSources:");
 
     foreach (var s in report.Sources)
     {
         if (!s.FetchOk)
         {
-            Console.WriteLine($"  {s.SourceName}: FAILED ({s.FailureReason})");
+            Console.WriteLine(
+                $"  {s.SourceName}: FAILED ({s.FailureReason})");
+
             continue;
         }
 
         Console.WriteLine(
-            $"  {s.SourceName}: {s.Fetched} получено, {s.NewMaterials} новых, " +
-            $"{s.NewSnapshots} изменённых, {s.Unchanged} без изменений, " +
-            $"{s.ParseFailed} ошибок разбора");
+            $"  {s.SourceName}: " +
+            $"{s.Fetched} fetched, " +
+            $"{s.NewMaterials} new, " +
+            $"{s.Updated} updated, " +
+            $"{s.Noise} noise, " +
+            $"{s.Unchanged} unchanged, " +
+            $"{s.ParseFailed} parse errors, " +
+            $"{s.OverBudget} over budget");
     }
+
+    Console.WriteLine("\nTotal:");
+
+    Console.WriteLine(
+        $"  Fetched:     {report.Sources.Sum(s => s.Fetched)}\n" +
+        $"  New:         {report.Sources.Sum(s => s.NewMaterials)}\n" +
+        $"  Updated:     {report.Sources.Sum(s => s.Updated)}\n" +
+        $"  Noise:       {report.Sources.Sum(s => s.Noise)}\n" +
+        $"  Unchanged:   {report.Sources.Sum(s => s.Unchanged)}\n" +
+        $"  ParseError:  {report.Sources.Sum(s => s.ParseFailed)}\n" +
+        $"  OverBudget:  {report.Sources.Sum(s => s.OverBudget)}");
 }

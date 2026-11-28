@@ -1,3 +1,9 @@
 ﻿namespace GesDelta.Core.Models;
 
-public record CollectReport(long RunId, IReadOnlyList<SourceCollectReport> Sources);
+public record CollectReport(
+    long RunId,
+    IReadOnlyList<SourceCollectReport> Sources)
+{
+    public IReadOnlyList<MaterialDetectionReport> Detections
+    { get; init; } = [];
+}

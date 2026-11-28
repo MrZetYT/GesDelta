@@ -311,6 +311,22 @@ public class CollectRunnerTests : DbTestBase
 
         Assert.That(changes,
             Is.EqualTo(new[] { "habr", "arxiv", "habr" }));
+        Assert.That(
+            report.Detections.Count(d =>
+                d.Verdict == DetectionVerdict.New),
+            Is.EqualTo(3));
+        
+        Assert.That(
+            report.Detections
+                .Where(d => d.Verdict == DetectionVerdict.New)
+                .Select(d => d.SourceName),
+            Is.EqualTo(new[] { "habr", "arxiv", "habr" }));
+        
+        Assert.That(
+            report.Detections
+                .Where(d => d.Verdict == DetectionVerdict.OverBudget)
+                .All(d => d.ChangeId is null),
+            Is.True);
     }
     
     [Test]

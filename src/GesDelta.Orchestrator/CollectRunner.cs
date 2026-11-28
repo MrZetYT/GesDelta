@@ -46,6 +46,7 @@ public class CollectRunner(
 
         var reports = new Dictionary<long, SourceCollectReport>();
         var groups = new List<List<DetectionCandidate>>();
+        var detections = new List<MaterialDetectionReport>();
 
         try
         {
@@ -70,6 +71,14 @@ public class CollectRunner(
                     candidate.Item,
                     budget,
                     ct);
+                
+                detections.Add(new MaterialDetectionReport(
+                    candidate.SourceId,
+                    reports[candidate.SourceId].SourceName,
+                    candidate.Item.ExternalId,
+                    candidate.Item.Title,
+                    result.Verdict,
+                    result.ChangeId));
 
                 reports[candidate.SourceId] = ApplyVerdict(
                     reports[candidate.SourceId],
@@ -82,7 +91,10 @@ public class CollectRunner(
 
             await CloseRunAsync(run, orderedReports, ct);
 
-            return new CollectReport(run.Id, orderedReports);
+            return new CollectReport(run.Id, orderedReports)
+            {
+                Detections = detections.AsReadOnly()
+            };
         }
         catch (Exception ex)
         {
