@@ -8,4 +8,7 @@ public record SourceCollectReport(
     int ParseFailed,
     int NewMaterials,
     int NewSnapshots,
-    int Unchanged);
+    int Unchanged,
+    int Updated = 0,
+    int Noise = 0,
+    int OverBudget = 0);

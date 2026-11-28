@@ -62,9 +62,11 @@ public class CollectRunnerTests : DbTestBase
         return topic.Id;
     }
 
-    private async Task<CollectReport> CollectAsync(long topicId)
+    private async Task<CollectReport> CollectAsync(
+        long topicId,
+        int maxNewMaterials = 100)
     {
-        var http = new HttpClient(new RoutingHandler(Route));
+        using var http = new HttpClient(new RoutingHandler(Route));
 
         ISourceFetcher? GetFetcher(SourceType type) => type switch
         {
@@ -74,13 +76,38 @@ public class CollectRunnerTests : DbTestBase
         };
 
         await using var db = NewDb();
-        var collector = new Collector(
-            GetFetcher, Options.Create(new SourcesOptions()), NullLogger<Collector>.Instance);
-        var runner = new CollectRunner(
-            db, collector, new Parser(),
-            new TemporaryMaterialWriter(db, TimeProvider.System), TimeProvider.System);
 
-        return await runner.CollectAsync(topicId, CancellationToken.None);
+        var sourceOptions = Options.Create(new SourcesOptions
+        {
+            MaxNewMaterialsPerRun = maxNewMaterials
+        });
+
+        var detectorOptions = Options.Create(
+            new DetectorOptions());
+
+        var collector = new Collector(
+            GetFetcher,
+            sourceOptions,
+            NullLogger<Collector>.Instance);
+
+        var judge = new SignificanceJudge(
+            new DiffPlexTextDiffer(),
+            new TextSimilarity(),
+            detectorOptions);
+
+        var detector = new Detector(
+            db, judge, detectorOptions, TimeProvider.System);
+
+        var runner = new CollectRunner(
+            db,
+            collector,
+            new Parser(),
+            detector,
+            sourceOptions,
+            TimeProvider.System);
+
+        return await runner.CollectAsync(
+            topicId, CancellationToken.None);
     }
 
     private async Task<int> CountMaterialsAsync(long topicId)
@@ -249,5 +276,127 @@ public class CollectRunnerTests : DbTestBase
     public void Collect_UnknownTopic_Throws()
     {
         Assert.CatchAsync<ArgumentException>(() => CollectAsync(topicId: -1));
+    }
+    
+    [Test]
+    public async Task Collect_DistributesBudgetAcrossSources()
+    {
+        var topicId = await SeedTopicAsync(Habr(), Arxiv());
+
+        var report = await CollectAsync(
+            topicId, maxNewMaterials: 3);
+
+        Assert.That(report.Sources[0].NewMaterials,
+            Is.EqualTo(2));
+
+        Assert.That(report.Sources[1].NewMaterials,
+            Is.EqualTo(1));
+
+        Assert.That(report.Sources.Sum(s => s.NewMaterials),
+            Is.EqualTo(3));
+
+        Assert.That(report.Sources.Sum(s => s.OverBudget),
+            Is.GreaterThan(0));
+
+        Assert.That(await CountMaterialsAsync(topicId),
+            Is.EqualTo(3));
+
+        await using var db = NewDb();
+
+        var changes = await db.Changes
+            .Where(c => c.Material!.Source!.TopicId == topicId)
+            .OrderBy(c => c.Id)
+            .Select(c => c.Material!.Source!.Name)
+            .ToListAsync();
+
+        Assert.That(changes,
+            Is.EqualTo(new[] { "habr", "arxiv", "habr" }));
+    }
+    
+    [Test]
+    public async Task Collect_OverBudgetItems_AreRetriedNextRun()
+    {
+        var topicId = await SeedTopicAsync(Habr(), Arxiv());
+
+        var first = await CollectAsync(
+            topicId, maxNewMaterials: 2);
+
+        var second = await CollectAsync(
+            topicId, maxNewMaterials: 2);
+
+        Assert.That(first.Sources.Sum(s => s.NewMaterials),
+            Is.EqualTo(2));
+
+        Assert.That(second.Sources.Sum(s => s.NewMaterials),
+            Is.EqualTo(2));
+
+        Assert.That(second.Sources.Sum(s => s.Unchanged),
+            Is.EqualTo(2));
+
+        Assert.That(await CountMaterialsAsync(topicId),
+            Is.EqualTo(4));
+    }
+    
+    [Test]
+    public async Task Collect_WritesDetectionStatistics()
+    {
+        var topicId = await SeedTopicAsync(Habr(), Arxiv());
+
+        var report = await CollectAsync(
+            topicId, maxNewMaterials: 2);
+
+        await using var db = NewDb();
+
+        var run = await db.Runs.SingleAsync(
+            r => r.Id == report.RunId);
+
+        using var stats = JsonDocument.Parse(run.Stats);
+
+        var root = stats.RootElement;
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(root.GetProperty("new").GetInt32(),
+                Is.EqualTo(2));
+
+            Assert.That(root.GetProperty("updated").GetInt32(),
+                Is.Zero);
+
+            Assert.That(root.GetProperty("noise").GetInt32(),
+                Is.Zero);
+
+            Assert.That(root.GetProperty("pending").GetInt32(),
+                Is.EqualTo(2));
+
+            Assert.That(root.GetProperty("overBudget").GetInt32(),
+                Is.EqualTo(report.Sources.Sum(s => s.OverBudget)));
+        });
+    }
+    
+    [Test]
+    public async Task Collect_NoNewChangesAndNoPending_RunIsNoChanges()
+    {
+        var topicId = await SeedTopicAsync(Habr(), Arxiv());
+
+        await CollectAsync(topicId);
+
+        await using (var db = NewDb())
+        {
+            await db.Changes
+                .Where(c => c.Material!.Source!.TopicId == topicId)
+                .ExecuteUpdateAsync(s => s.SetProperty(
+                    c => c.Status, ChangeStatus.Done));
+        }
+
+        var report = await CollectAsync(topicId);
+
+        await using var check = NewDb();
+
+        var run = await check.Runs.SingleAsync(
+            r => r.Id == report.RunId);
+
+        Assert.That(run.Status, Is.EqualTo(RunStatus.NoChanges));
+        Assert.That(report.Sources.Sum(s => s.NewMaterials), Is.Zero);
+        Assert.That(report.Sources.Sum(s => s.Updated), Is.Zero);
     }
 }
